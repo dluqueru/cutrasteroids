@@ -1,9 +1,14 @@
-#board {
+#background {
     position: relative;
     background-color: #414a4c;
     height: 100vh;
 }
 
-#player {
-
+.rocket {
+    position: absolute;
+    background-color: yellow;
+    height: 10vh;
+    width: 10vh;
+    left: 50vh;
+    bottom: 50vh;
 }
