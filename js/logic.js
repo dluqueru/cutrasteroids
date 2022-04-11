@@ -5,48 +5,47 @@ class Game {
     start(){
         this.player = new Player();
         this.player.playerLooks = this.player.getPlayer();
-        //this.player.getPlayer()
         this.player.definePosition();
         this.movePlayer();
     }
     movePlayer(direction){
         if (direction === 'up') {
-            player.moveUp();
+            this.player.moveUp();
         } else if (direction === 'down') {
-            player.moveDown();
+            this.player.moveDown();
         } else if (direction === 'right') {
-            player.moveRight();
+            this.player.moveRight();
         } else if (direction === 'left') {
-            player.moveLeft();
+            this.player.moveLeft();
         }
+        this.player.definePosition();
     }
-
 }
 
 class Player {
     constructor(){
-        this.positionX = 50;
-        this.positionY = 50;
+        this.positionX = 45;
+        this.positionY = 45;
         this.playerLooks = null; // this is like de the DOMelement
     }
     moveUp(){
-        if(this.positionY < 100) {
-        this.positionY++;
+        if(this.positionY < 95) {
+        this.positionY+=4;
         }
     }
     moveDown(){
-        if(this.positionY > 0) {
-        this.positionY--; 
+        if(this.positionY > 2) {
+        this.positionY-=4; 
         }
     }
     moveRight(){
-        if(this.positionX < 100) {
-        this.positionX++;
+        if(this.positionX < 97) {
+        this.positionX+=2;
         }
     }
     moveLeft(){
-        if(this.positionX > 0) {
-            this.positionX--;
+        if(this.positionX > 1) {
+            this.positionX-=2;
         }
     }
     getPlayer(){
@@ -63,7 +62,6 @@ class Player {
 }
 
 const newPlayer = new Player();
-this.playerLooks
 
 
 class Asteroids {

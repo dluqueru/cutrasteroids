@@ -7,8 +7,6 @@
 .rocket {
     position: absolute;
     background-color: yellow;
-    height: 10vh;
-    width: 10vh;
-    left: 50vh;
-    bottom: 50vh;
+    height: 5vh;
+    width: 5vh;
 }
