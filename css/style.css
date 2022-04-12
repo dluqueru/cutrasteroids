@@ -9,4 +9,12 @@
     background-color: yellow;
     height: 5vh;
     width: 5vh;
+    border-radius: 50%;
+}
+.rock {
+    position: absolute;
+    background-color: brown;
+    height: 20vh;
+    width: 20vh;
+    border-radius: 50%;
 }
