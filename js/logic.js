@@ -4,12 +4,17 @@ class Game {
         this.asteroid = null;
         this.time = 0;
         this.asteroids = [];
+        this.background = document.getElementById('background');
+        this.gameOver = document.getElementById('game-over-screen');
     }
     start(){
         this.player = new Player();
         this.player.playerLooks = this.player.getPlayer();
         this.player.definePosition();
         this.movePlayer();
+
+        this.background.style.display = 'block';
+        this.gameOver.style.display = 'none'
 
         // this.asteroid = new Asteroid();
         // this.asteroid.asteroidLooks = this.asteroid.getAsteroid();
@@ -19,7 +24,7 @@ class Game {
             this.time++;
 
             // create asteroids
-            if(this.time % 10 === 0){
+            if(this.time % 30 === 0){
                 const newAsteroid = new Asteroid();
                 this.asteroids.push(newAsteroid);
                 newAsteroid.asteroidLooks = newAsteroid.getAsteroid();
@@ -34,7 +39,7 @@ class Game {
             });
 
             
-        }, 500);
+        }, 50);
     }
 
     movePlayer(direction){
@@ -64,7 +69,8 @@ class Game {
             this.player.positionX + this.player.width > asteroid.positionX &&
             this.player.positionY < asteroid.positionY + asteroid.height &&
             this.player.height + this.player.positionY > asteroid.positionY) {
-                console.log('game over');
+                this.background.style.display = 'none';
+                this.gameOver.style.display = 'block';
         }
     }
 }
@@ -127,17 +133,17 @@ const newPlayer = new Player();
 
 class Asteroid {
     constructor(){
-        this.positionX = 0;
-        this.positionY = 0;
+        this.positionX = -10;
+        this.positionY = Math.random() * (90 - 0);
         this.height = 20;
         this.width = 10;
         this.asteroidLooks = null;
     }
     moveAsteroid(){
         this.positionX++;
-        // if(this.postionX >= 100){
-        //     .remove // OJOJO overflow hidden (CSS)
-        //}
+        //  if(this.positionX >= 100){
+        //      .remove                                 // OJOJO overflow hidden (CSS)
+        // }
     }
     getAsteroid(){
         const background = document.getElementById('background');
