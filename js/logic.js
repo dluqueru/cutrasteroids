@@ -10,27 +10,31 @@ class Game {
         this.player.playerLooks = this.player.getPlayer();
         this.player.definePosition();
         this.movePlayer();
-        this.asteroid = new Asteroid();
-        this.asteroid.asteroidLooks = this.asteroid.getAsteroid();
-        this.asteroid.definePosition();
+
+        // this.asteroid = new Asteroid();
+        // this.asteroid.asteroidLooks = this.asteroid.getAsteroid();
+        // this.asteroid.definePosition();
 
         setInterval(()=>{
-            this.asteroids.forEach((asteroid) => {
-                
-            this.asteroid.moveAsteroid();
-            this.asteroid.definePosition();
-            this.objectCollision(asteroid);
-            });
+            this.time++;
 
+            // create asteroids
             if(this.time % 10 === 0){
-                
                 const newAsteroid = new Asteroid();
                 this.asteroids.push(newAsteroid);
-                newAsteroid.asteroidLooks = this.asteroid.getAsteroid();
-                this.newAsteroid.definePosition();
+                newAsteroid.asteroidLooks = newAsteroid.getAsteroid();
+                newAsteroid.definePosition();
             }
-            this.time++;
-        }, 100);
+
+            // move and detect collision
+            this.asteroids.forEach((asteroid) => {
+              asteroid.moveAsteroid();
+              asteroid.definePosition();
+              this.objectCollision(asteroid);
+            });
+
+            
+        }, 500);
     }
 
     movePlayer(direction){
@@ -56,10 +60,10 @@ class Game {
     }
 
     objectCollision(asteroid){
-        if(this.player.positionX < asteroid.positionX + asteroid.width &&
+        if (this.player.positionX < asteroid.positionX + asteroid.width &&
             this.player.positionX + this.player.width > asteroid.positionX &&
             this.player.positionY < asteroid.positionY + asteroid.height &&
-            this.player.height + this.player.positionY > asteroid.positionY){
+            this.player.height + this.player.positionY > asteroid.positionY) {
                 console.log('game over');
         }
     }
@@ -70,7 +74,7 @@ class Player {
         this.positionX = 45;
         this.positionY = 45;
         this.height = 5;
-        this.width = 5;
+        this.width = 3;
         this.playerLooks = null; // this is like de the DOMelement
     }
     moveUp(){
@@ -123,10 +127,10 @@ const newPlayer = new Player();
 
 class Asteroid {
     constructor(){
-        this.positionX = 20;
-        this.positionY = 20;
+        this.positionX = 0;
+        this.positionY = 0;
         this.height = 20;
-        this.width = 20;
+        this.width = 10;
         this.asteroidLooks = null;
     }
     moveAsteroid(){
