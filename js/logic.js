@@ -15,20 +15,23 @@ class Game {
         this.asteroid.definePosition();
 
         setInterval(()=>{
-            this.asteroid.moveAsteroid()
-            this.asteroid.definePosition()
-            // this.objectCollision(asteroid);
+            this.asteroids.forEach((asteroid) => {
+                
+            this.asteroid.moveAsteroid();
+            this.asteroid.definePosition();
+            this.objectCollision(asteroid);
+            });
 
             if(this.time % 10 === 0){
+                
                 const newAsteroid = new Asteroid();
-                newAsteroid.asteroidLooks = this.asteroid.getAsteroid();
                 this.asteroids.push(newAsteroid);
+                newAsteroid.asteroidLooks = this.asteroid.getAsteroid();
+                this.newAsteroid.definePosition();
             }
             this.time++;
-        }, 100)
-        
+        }, 100);
     }
-
 
     movePlayer(direction){
         if (direction === 'up') {
@@ -51,16 +54,15 @@ class Game {
         // }
         this.player.definePosition();
     }
-    // objectCollision(player, asteroid){
-    //     let dx = (player.positionX + player.width) - (asteroid.positionX + asteroid.width);
-    //     let dy = (player.positionY + player.height) - (asteroid.positionY + asteroid.height);
-    //     let distance = Math.sqrt(dx * dx + dy * dy);
 
-    //     if (distance < player.width + asteroid.width) {
-    //     // collision detected!
-    //     console.log('Game Over champ');
-    //     }
-    // }
+    objectCollision(asteroid){
+        if(this.player.positionX < asteroid.positionX + asteroid.width &&
+            this.player.positionX + this.player.width > asteroid.positionX &&
+            this.player.positionY < asteroid.positionY + asteroid.height &&
+            this.player.height + this.player.positionY > asteroid.positionY){
+                console.log('game over');
+        }
+    }
 }
 
 class Player {
@@ -129,6 +131,9 @@ class Asteroid {
     }
     moveAsteroid(){
         this.positionX++;
+        // if(this.postionX >= 100){
+        //     .remove // OJOJO overflow hidden (CSS)
+        //}
     }
     getAsteroid(){
         const background = document.getElementById('background');
@@ -141,5 +146,6 @@ class Asteroid {
         this.asteroidLooks.style.left = this.positionX +'vw';
         this.asteroidLooks.style.bottom = this.positionY +'vh';
     }
+
 }
-const newAsteroid = new Asteroid();
+const newAsteroide = new Asteroid();

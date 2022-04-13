@@ -3,7 +3,9 @@ const player = new Player();
 const asteroid = new Asteroid();
 game.start();
 
+let keysPressed = {};
 document.addEventListener('keydown', (e) => {
+    keysPressed[e.key] = true;
     if(e.key === 'ArrowUp'){
         game.movePlayer('up');
     } else if(e.key === 'ArrowDown'){
@@ -13,7 +15,7 @@ document.addEventListener('keydown', (e) => {
     } else if(e.key === 'ArrowLeft'){
         game.movePlayer('left');
     }
-    // else if(e.key === 'ArrowUp'+'ArrowRight'){
+    // else if(keysPressed['ArrowUp'] && e.key =='ArrowRight'){
     //     game.movePlayer('UR');
     // } else if(e.key === 'ArrowDown'+'ArrowRight'){
     //     game.movePlayer('DR');
@@ -23,3 +25,6 @@ document.addEventListener('keydown', (e) => {
     //     game.movePlayer('UL');
     // }
 })
+// document.addEventListener('keyup', (e) => {
+//     delete keysPressed[e.key];
+//  });
