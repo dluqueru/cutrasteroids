@@ -1,22 +1,55 @@
 #background {
     position: relative;
+    background-image: url(../images/background2.png);
     background-color: #414a4c;
     height: 100vh;
 }
 
 .rocket {
     position: absolute;
-    background-color: yellow;
-    height: 5vh;
+    background-image: url(../images/spaceship\ wena.png);
+    background-size: cover;
+    background-position: center;
+    height: 8vh;
     width: 3vw;
     border-radius: 50%;
-    outline: 1px solid;
 }
 .rock {
     position: absolute;
-    background-color: brown;
+    background-image: url(../images/rock.png);
+    background-size: cover;
+    background-position: center;
     height: 20vh;
     width: 10vw;
     border-radius: 50%;
+    animation: rotation 8s infinite linear;
+}
+@keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+.pew {
+    position: absolute;
+    background-image: url(../images/brightness.png);
+    background-size: cover;
+    background-position: center;
+    height: 1vh;
+    width: 0.5vw;
+    border-radius: 50%;
     outline: 1px solid;
+}
+#start {
+    height: 100vh;
+    background-image: url(../images/background2.png);
+}
+#game-over-screen {
+    height: 100vh;
+    background-image: url(../images/giphy.gif);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: black;
 }

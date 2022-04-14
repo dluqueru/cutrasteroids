@@ -3,7 +3,8 @@ class Game {
         this.player = null;
         this.asteroid = null;
         this.time = 0;
-        this.asteroids = [];
+        this.asteroidArr = [];
+        this.laserArr = [];
         this.background = document.getElementById('background');
         this.gameOver = document.getElementById('game-over-screen');
     }
@@ -12,9 +13,13 @@ class Game {
         this.player.playerLooks = this.player.getPlayer();
         this.player.definePosition();
         this.movePlayer();
-
+        this.shoot();
+        
         this.background.style.display = 'block';
-        this.gameOver.style.display = 'none'
+        this.gameOver.style.display = 'none';
+
+        let audio = new Audio('../music/Doctor Who 2010 Theme [HQ].mp3');
+        audio.play();
 
         // this.asteroid = new Asteroid();
         // this.asteroid.asteroidLooks = this.asteroid.getAsteroid();
@@ -26,18 +31,25 @@ class Game {
             // create asteroids
             if(this.time % 30 === 0){
                 const newAsteroid = new Asteroid();
-                this.asteroids.push(newAsteroid);
+                this.asteroidArr.push(newAsteroid);
                 newAsteroid.asteroidLooks = newAsteroid.getAsteroid();
                 newAsteroid.definePosition();
             }
 
             // move and detect collision
-            this.asteroids.forEach((asteroid) => {
+            this.asteroidArr.forEach((asteroid) => {
               asteroid.moveAsteroid();
               asteroid.definePosition();
               this.objectCollision(asteroid);
+              this.eraseAsteroid(asteroid);
+              this.laserArr.forEach((laser) => {
+                this.laserCollision(laser, asteroid);
             });
-
+            });
+            this.laserArr.forEach((laser) => {
+                laser.moveLaser();
+                laser.definePosition();
+            });
             
         }, 50);
     }
@@ -73,13 +85,43 @@ class Game {
                 this.gameOver.style.display = 'block';
         }
     }
+
+    laserCollision(laser, asteroid){
+        if (laser.positionX < asteroid.positionX + asteroid.width &&
+            laser.positionX + laser.width > asteroid.positionX &&
+            laser.positionY < asteroid.positionY + asteroid.height &&
+            laser.height + laser.positionY > asteroid.positionY){
+                this.laserArr.splice(this.laserArr.indexOf(laser), 1);
+                this.asteroidArr.splice(this.asteroidArr.indexOf(asteroid), 1);
+                laser.laserLooks.remove();
+                asteroid.asteroidLooks.remove();
+                console.log('hello');
+            }
+    }
+
+    eraseAsteroid(asteroid){
+        if(asteroid.positionX > 87){
+            asteroid.asteroidLooks.remove();
+            this.asteroidArr.shift();
+        }
+    }
+    shoot(){
+        const laser = new Laser(this.player.positionX, this.player.positionY);
+        this.laserArr.push(laser);
+        laser.laserLooks = laser.getLaser();
+        laser.definePosition();
+        this.laserArr.forEach((laser) => {
+            laser.moveLaser();
+            laser.definePosition();
+        })
+    }
 }
 
 class Player {
     constructor(){
         this.positionX = 45;
         this.positionY = 45;
-        this.height = 5;
+        this.height = 8;
         this.width = 3;
         this.playerLooks = null; // this is like de the DOMelement
     }
@@ -134,16 +176,13 @@ const newPlayer = new Player();
 class Asteroid {
     constructor(){
         this.positionX = -10;
-        this.positionY = Math.random() * (90 - 0);
+        this.positionY = Math.random() * (85 - 0);
         this.height = 20;
         this.width = 10;
         this.asteroidLooks = null;
     }
     moveAsteroid(){
         this.positionX++;
-        //  if(this.positionX >= 100){
-        //      .remove                                 // OJOJO overflow hidden (CSS)
-        // }
     }
     getAsteroid(){
         const background = document.getElementById('background');
@@ -159,3 +198,27 @@ class Asteroid {
 
 }
 const newAsteroide = new Asteroid();
+
+class Laser {
+    constructor(positionX, positionY){
+        this.height = 1;
+        this.width = 0.5;
+        this.positionX = positionX;
+        this.positionY = positionY;
+        this.laserLooks = null;
+    }
+    moveLaser(){
+        this.positionX --;
+    } 
+    getLaser(){
+        const background = document.getElementById('background');
+        const pew = document.createElement ('div');
+        pew.className = "pew";
+        background.appendChild(pew);
+        return pew;
+    }
+    definePosition(){
+        this.laserLooks.style.left = this.positionX +'vw';
+        this.laserLooks.style.bottom = this.positionY +'vh';
+    }
+  }

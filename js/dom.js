@@ -14,6 +14,8 @@ document.addEventListener('keydown', (e) => {
         game.movePlayer('right');
     } else if(e.key === 'ArrowLeft'){
         game.movePlayer('left');
+    } else if(e.key === ' '){
+        game.shoot();
     }
     // else if(keysPressed['ArrowUp'] && e.key =='ArrowRight'){
     //     game.movePlayer('UR');
@@ -28,3 +30,5 @@ document.addEventListener('keydown', (e) => {
 // document.addEventListener('keyup', (e) => {
 //     delete keysPressed[e.key];
 //  });
+
+
