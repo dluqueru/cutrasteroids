@@ -18,7 +18,7 @@ class Game {
         this.background.style.display = 'block';
         this.gameOver.style.display = 'none';
 
-        let audio = new Audio('../music/Doctor Who 2010 Theme [HQ].mp3');
+        let audio = new Audio('./music/dr-who-2010-theme.mp3');
         audio.play();
 
         // this.asteroid = new Asteroid();
@@ -29,7 +29,7 @@ class Game {
             this.time++;
 
             // create asteroids
-            if(this.time % 30 === 0){
+            if(this.time % 15 === 0){
                 const newAsteroid = new Asteroid();
                 this.asteroidArr.push(newAsteroid);
                 newAsteroid.asteroidLooks = newAsteroid.getAsteroid();
@@ -51,7 +51,7 @@ class Game {
                 laser.definePosition();
             });
             
-        }, 50);
+        }, 30);
     }
 
     movePlayer(direction){
@@ -127,22 +127,22 @@ class Player {
     }
     moveUp(){
         if(this.positionY < 94) {
-        this.positionY+=4;
+        this.positionY+=5;
         }
     }
     moveDown(){
         if(this.positionY > 2) {
-        this.positionY-=4; 
+        this.positionY-=5; 
         }
     }
     moveRight(){
         if(this.positionX < 97) {
-        this.positionX+=2;
+        this.positionX+=3;
         }
     }
     moveLeft(){
         if(this.positionX > 1) {
-            this.positionX-=2;
+            this.positionX-=3;
         }
     }
     // moveUR(){
